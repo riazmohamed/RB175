@@ -62,5 +62,14 @@ loop do
   client.puts http_method
   client.puts path
   client.puts params
+
+  rolls = params["rolls"].to_i
+  sides = params["sides"].to_i
+
+  rolls.times do
+    roll = rand(sides) + 1
+    client.puts roll
+  end
+
   client.close
 end
