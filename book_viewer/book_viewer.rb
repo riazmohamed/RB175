@@ -16,10 +16,3 @@ get "/chapters/:number" do
 
   erb :chapter
 end
-
-# get "/show/:name"  do
-#   "Hello #{params['name']}!"
-#   @name = params['name']
-#
-#   erb :name, layout: :name
-# end
