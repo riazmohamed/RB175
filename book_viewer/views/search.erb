@@ -5,17 +5,19 @@
   <button type="submit">Search</button>
 </form>
 
-<% if @arr.empty? %>
-  <div class="pure-menu">
-    <ul class="pure-menu-list">
-        <p><%= "Sorry, no matches were found" %></p>
-      <% else %>
-        <h2 class="content-subhead">Results for "<%= @value %>"</h2>
-        <% @arr.each_with_index do |chapter, index| %>
-          <li class="pure-menu-item">
-            <a href="/chapters/<%= index + 1 %>"  class="pure-menu-link"><%= chapter %></a>
-          </li>
-        <% end %>
-    </ul>
-  </div>
+<% if params[:query] %>
+  <% if @arr.empty? %>
+    <div class="pure-menu">
+      <ul class="pure-menu-list">
+          <p><%= "Sorry, no matches were found" %></p>
+        <% else %>
+          <h2 class="content-subhead">Results for "<%= @value %>"</h2>
+          <% @arr.each_with_index do |chapter, index| %>
+            <li class="pure-menu-item">
+              <a href="/chapters/<%= index + 1 %>"  class="pure-menu-link"><%= chapter %></a>
+            </li>
+          <% end %>
+      </ul>
+    </div>
+  <% end %>
 <% end %>
