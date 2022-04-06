@@ -9,30 +9,25 @@ before do
 end
 
 helpers do
-  def count_interests(list)
-    user_count = list.count
-    interests_count = 0
-
-    list.each do |name, details|
-      interests_count += details[:interests].count
+  def count_interests(users)
+    users.reduce(0) do |sum, (name, user)|
+      sum + user[:interests].size
     end
-
-    "There are #{user_count} users with a total of #{interests_count} interests."
   end
 end
 
-get '/' do
-  redirect '/users'
+get "/" do
+  redirect "/users"
 end
 
-get '/users' do
-
+get "/users" do
   erb :users
 end
 
-get '/users/:name' do
-  @name = params[:name]
-  @hobby = @users[@name.to_sym]
+get "/:user_name" do
+  @user_name = params[:user_name].to_sym
+  @email = @users[@user_name][:email]
+  @interests = @users[@user_name][:interests]
 
   erb :current_user
 end

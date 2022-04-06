@@ -1,6 +1,10 @@
-<h1>List of users</h1>
-<% @users.keys.each do |name| %>
-  <li>
-    <a href="/users/<%= name %>"><%= name %></a>
-  </li>
-<% end %>
+<h1>Users</h1>
+<ul>
+  <% @users.keys.each do |name| %>
+    <li>
+      <a href="/<%= name %>">
+        <%= name %>
+      </a>
+    </li>
+  <% end %>
+</ul>
