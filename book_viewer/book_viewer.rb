@@ -7,8 +7,24 @@ helpers do
     str.split("\n\n").map { |para| "<p>#{para}<\p>" }.join
   end
 
-  def split_into_words(str, word)
-    str.split(/[ .]/).map(&:downcase).any? { |string| string.match(/#{word}/)}
+  def each_chapter
+    @contents.each_with_index do |name, index|
+      number = index + 1
+      contents = File.read("data/chp#{number}.txt")
+      yield number, name, contents
+    end
+  end
+
+  def chapters_matching(query)
+    results = []
+
+    return results if !query || query.empty?
+
+    each_chapter do |number, name, contents|
+      results << {number: number, name: name} if contents.include?(query)
+    end
+
+    results
   end
 end
 
@@ -39,12 +55,6 @@ get "/chapters/:number" do
 end
 
 get "/search" do
-  @value = params['query']
-
-  @arr = (@contents.select.with_index do |chapter, idx|
-    @chapter = File.read("data/chp#{idx + 1}.txt")
-    split_into_words(@chapter, @value)
-  end)
-
+  @results = chapters_matching(params[:query])
   erb :search
 end
