@@ -1,0 +1,15 @@
+<h2><strong>Name:</strong> <%= @name.upcase %></h2>
+<h3>Details</h3>
+<ul>
+  <strong>Email</strong>: <%= @hobby[:email] %>
+  <p>
+    <strong>Interests:</strong>
+    <ul>
+      <% @hobby[:interests].each do |interest| %>
+        <li><%= interest %></li>
+      <% end %>
+    </ul>
+  </p>
+</ul>
+
+<p><a href="/">home</a></p>
