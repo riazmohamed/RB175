@@ -8,6 +8,19 @@ before do
   @users = YAML.load_file("users.yaml")
 end
 
+helpers do
+  def count_interests(list)
+    user_count = list.count
+    interests_count = 0
+
+    list.each do |name, details|
+      interests_count += details[:interests].count
+    end
+
+    "There are #{user_count} users with a total of #{interests_count} interests."
+  end
+end
+
 get '/' do
   redirect '/users'
 end
