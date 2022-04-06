@@ -4,7 +4,9 @@ require "sinatra/reloader"
 
 helpers do
   def in_paragraphs(str)
-    str.split("\n\n").map { |para| "<p>#{para}<\p>" }.join
+    str.split("\n\n").map.with_index do |line, index|
+      "<p id=paragraph#{index}>#{line}</p>"
+    end.join
   end
 
   def each_chapter
@@ -18,10 +20,14 @@ helpers do
   def chapters_matching(query)
     results = []
 
-    return results if !query || query.empty?
+    return results unless query
 
     each_chapter do |number, name, contents|
-      results << {number: number, name: name} if contents.include?(query)
+      matches = {}
+      contents.split("\n\n").each_with_index do |paragraph, index|
+        matches[index] = paragraph if paragraph.include?(query)
+      end
+      results << { number: number, name: name, paragraphs: matches} if matches.any?
     end
 
     results
