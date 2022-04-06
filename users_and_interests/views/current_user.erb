@@ -4,16 +4,21 @@
   <strong>Email</strong>: <%= @hobby[:email] %>
   <p>
     <strong>Interests:</strong>
-    <ul>
-      <% @hobby[:interests].each do |interest| %>
-        <li><%= interest %></li>
-      <% end %>
-    </ul>
+    <%= @hobby[:interests].join(', ') %>
   </p>
+
 </ul>
 
-<strong>Other Users:</strong>
-<% @users.keys.map do |person| %>
-  <a href="/users/<%= person %>"><%= person %></a>
-<% end %>
-<p><a href="/">Back_home</a></p>
+<ul>
+  <p>
+    <strong>Other Users:</strong>
+    <% @users.keys.map do |person| %>
+      <% if person != @name.to_sym %>
+        <a href="/users/<%= person %>"><%= person %></a>
+      <% end %>
+    <% end %>
+  </p>
+  <p>
+    <a href="/">Back_home</a>
+  </p>
+</ul>
