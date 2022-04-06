@@ -32,6 +32,10 @@ helpers do
 
     results
   end
+
+  def highlight(text, term)
+    text.gsub(term, "<strong>#{term}</strong>")
+  end
 end
 
 not_found do
