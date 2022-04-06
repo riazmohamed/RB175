@@ -12,4 +12,8 @@
   </p>
 </ul>
 
-<p><a href="/">home</a></p>
+<strong>Other Users:</strong>
+<% @users.keys.map do |person| %>
+  <a href="/users/<%= person %>"><%= person %></a>
+<% end %>
+<p><a href="/">Back_home</a></p>
